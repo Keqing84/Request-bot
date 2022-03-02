@@ -1,0 +1,55 @@
+{
+    "name": "Request Bot",
+    "logo": "https://telegra.ph//file/a4904e22d59d5631d4d98.jpg",
+    "description": "This Bot Can Make Yours Requests in Your Group/Channel and Make A Request In The Channel.",
+    "keywords": [
+        "telegram",
+        "request_bot",
+        "telegram_bot"
+    ],
+    "repository": "https://github.com/Keqing84/Request-bot",
+    "success_url": "https://telegram.me/Dragonkrak",
+    "env": {
+        "API_ID": {
+            "description": "Get from my.telegram.org/apps",
+            "required": "True",
+            "value": "12345"
+        },
+        "API_HASH": {
+            "description": "Get From my.telehram.org",
+            "required": "True",
+            "value": "xxxxxxxxxxxxxxx"
+        },
+        "BOT_TOKEN": {
+            "description": "Get From @BotFather from telegram",
+            "required": "True"
+        },
+        "CHANNEL": {
+            "description": "The Channel Where The Request Will Be Posted Where The Admins Can Check. Should Only 1 Channel Submitted Here",
+            "required": "True",
+            "value": "-1001729940618"
+        },
+        "AUTH_CHATS": {
+            "description": "The Chats Where The Bot Will Work otherwise the bot Can Be Misused. For Multiple Chats add a gap between All The Chat id",
+            "required": "True",
+            "value": "-1001580931779 -1001749356358"
+        },
+        "IMG": {
+            "description": "The Start Image That Will Be Shown. You Can Skip This Or Put Your Channel Image.",
+            "required": "False",
+            "value": "https://imgwhale.xyz/5taf21l07yc75m"
+        }
+    },
+    "stack": "heroku-20",
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    }
+}

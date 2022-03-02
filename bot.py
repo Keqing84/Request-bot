@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait
 from config import Config
 from os import environ as env
@@ -7,7 +7,7 @@ from os import environ as env
 Appy = Client("Request Bot", api_id=Config.API_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
 
 prefixes = ["#","/","!","@"]
-photo = env.get("IMG") if len(env.get("IMG")) != 0 else "https://imgwhale.xyz/16mc8wom21l07utmtw"
+photo = env.get("IMG") if len(env.get("IMG")) != 0 else "https://imgwhale.xyz/5taf21l07yc75m"
 AUTH_CHATS = Config.AUTH_CHATS.split() if " " in Config.AUTH_CHATS else Config.AUTH_CHATS
 
 # Start Message
@@ -25,8 +25,8 @@ async def start_msg (message, bot):
    )
 
 # Request Cmd
-@Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
-async def startmsg (message, bot):
+@Appy.on_message(filters.incoming & (filters.command("request", prefixes=prefixes) | filters.command("req", prefixes=prefixes)))
+async def requestmsg(message, bot):
    if not str(message.chat.id) in AUTH_CHATS:
      return
    else:
@@ -36,9 +36,9 @@ async def startmsg (message, bot):
      return await message.reply_text("Send A Query Also with The Cmd in A Single Message.")
    else:
      pass
-   text = text.split(" ", 1)[-1]
+   reqtext = text.split(" ", 1)[-1]
    user = message.from_user
-   mention = user.mention()
+   mention = user.mention(style="md")
    markup = InlineKeyboardMarkup(
           [
              [ # First Row
@@ -51,8 +51,9 @@ async def startmsg (message, bot):
         )
    K = await message.reply("`.....`", quote=True)
    try:
+       rtext = f"A New Request Has Been Made\n\nRequest: {reqtext}\n\nFrom: {mention} | `{user.id}`"
        await bot.send_message(chat_id=Config.CHANNEL,
-                  text=f"",
+                  text=rtext,
                   disable_web_page_preview=True,
                   disable_notification=False,
                   parse_mode="md",
@@ -63,4 +64,23 @@ async def startmsg (message, bot):
    await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")
 
 
+# CallBack Query
+@Appy.on_callback_query()
+async def py_data(bot: Client, query: CallbackQuery):
+   if query.data == "donee":
+     msg = "~~" + query.message + "~~" + "\n\nCompleted✅"
+     try:
+       await query.message.edit_text(msg)
+     except Exception as e:
+       await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
 
+   # Give Up Callback
+
+   if query.data == "give_up":
+     msg = "~~" + query.message + "~~" + "\n\nGive Up❎"
+     try:
+       await query.message.edit_text(msg)
+     except Exception as e:
+       await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
+   else:
+     pass

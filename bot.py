@@ -3,8 +3,22 @@ from pyrogram.types import InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait
 from config import Config
 from os import environ as env
+import logging
 
 Appy = Client("Request Bot", api_id=Config.API_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
+
+LOGGER = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
+if Config.CHANNEL:
+  try:
+    bot.send_message(Config.CHANNEL, "Bot Started Working")
+  except Exception as e:
+    LOGGER.error(e)
+    exit()
 
 prefixes = ["#","/","!","@"]
 photo = env.get("IMG") if len(env.get("IMG")) != 0 else "https://imgwhale.xyz/5taf21l07yc75m"
@@ -60,8 +74,15 @@ async def requestmsg(message, bot):
                   reply_markup=markup
              )
    except Exception as e:
+      LOGGER.info(e)
       return await k.edit_text("**Error:**\n`{e}`)
-   await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")
+
+   try:
+     await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")
+   except Exception as e:
+     LOGGER.info(e)
+     await message.reply("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.", quote=True)
+     await K.delete()
 
 
 # CallBack Query
@@ -72,6 +93,7 @@ async def py_data(bot: Client, query: CallbackQuery):
      try:
        await query.message.edit_text(msg)
      except Exception as e:
+       LOGGER.info(e)
        await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
 
    # Give Up Callback
@@ -81,6 +103,7 @@ async def py_data(bot: Client, query: CallbackQuery):
      try:
        await query.message.edit_text(msg)
      except Exception as e:
+       LOGGER.info(e)
        await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
    else:
      pass

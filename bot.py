@@ -107,3 +107,5 @@ async def py_data(bot: Client, query: CallbackQuery):
        await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
    else:
      pass
+
+Appy.run()

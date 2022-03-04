@@ -1,6 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import FloodWait
+from sys import exit
 from config import Config
 from os import environ as env
 import logging
@@ -29,7 +30,7 @@ AUTH_CHATS = Config.AUTH_CHATS.split() if " " in Config.AUTH_CHATS else Config.A
 async def start_msg (message, bot):
    user = message.from_user
    mention = user.mention()
-   text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admins/Owner.'
+   text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
    await bot.send_photo(chat_id=message.chat.id, 
                         photo=photo, 
                         caption=text,

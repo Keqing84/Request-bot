@@ -5,6 +5,18 @@
 - Can Accept Contents From Group(s) and can be Forwarded To A Channel Where The Admin/Owner Can Process It Further
 - After Posting Something In The Channel The Admin(s)/Owner can Agree or Disagree.
 
+# How To Host:
+### Heroku Deploy:
+[![Heroku Deploy](https://img.shields.io/badge/Deploy%20To%20Heroku-green?style=for-the-badge&logo=heroku)](https://heroku.com/deploy?template=https://github.com/Keqing84/Request-bot)
+
+### Local Deploy:
+```
+git clone https://github.com/Keqing84/Request-bot
+cd Request-bot
+pip3 install -r requirements.txt
+# Fill The Config.py File With The Variables And In bot.py fill Your IMG Value
+python3 bot.py
+```
 # Repo Info:
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
 

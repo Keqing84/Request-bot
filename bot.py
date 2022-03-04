@@ -22,18 +22,19 @@ if Config.CHANNEL:
     exit()
 
 prefixes = ["#","/","!","@"]
-photo = env.get("IMG") if len(env.get("IMG")) != 0 else "https://imgwhale.xyz/5taf21l07yc75m"
 AUTH_CHATS = Config.AUTH_CHATS.split() if " " in Config.AUTH_CHATS else Config.AUTH_CHATS
 
 # Start Message
 @Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
 async def start_msg (message, bot):
    user = message.from_user
-   mention = user.mention()
+   mention = user.mention(style="md")
+   photo = env.get("IMG") if len(env.get("IMG")) != 0 else "https://imgwhale.xyz/5taf21l07yc75m"
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
    await bot.send_photo(chat_id=message.chat.id, 
                         photo=photo, 
                         caption=text,
+                        parse_mode="md",
                         reply_to_message_id=user.id,
                         ttl_seconds=15,
                         protect_content=True
@@ -108,5 +109,6 @@ async def py_data(bot: Client, query: CallbackQuery):
        await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
    else:
      pass
+
 
 Appy.run()

@@ -112,4 +112,5 @@ async def py_data(bot: Client, query: CallbackQuery):
      pass
 
 
+print("<--Bot Started-->")
 Appy.run()

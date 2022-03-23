@@ -1,6 +1,6 @@
 # Copyright By Keqing84 | @dragonkrak
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, CallbackQuery, Message
+from pyrogram.types import InlineKeyboardMarkup, CallbackQuery, Message, Chat
 from pyrogram.errors import FloodWait
 from sys import exit
 from config import Config
@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO,
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-Appy = Client(":memory:", 
+Appy = Client("Rq-Bot", 
               api_id = Config.API_ID, 
               api_hash = Config.API_HASH, 
               bot_token = Config.BOT_TOKEN
@@ -25,7 +25,7 @@ AUTH_CHATS = Config.AUTH_CHATS.split(" ") if " " in Config.AUTH_CHATS else Confi
 
 # Start Message
 @Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
-async def start_msg (message, bot):
+async def start_msg(message, bot):
    user = message.from_user
    mention = user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
@@ -39,8 +39,8 @@ async def start_msg (message, bot):
    )
 
 # Request Cmd
-@Appy.on_message(filters.incoming & filters.command(["request", "req"], prefixes=prefixes))
-async def requestmsg(message, bot):
+@Appy.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
+async def request_msg(message, bot):
    id = message.chat.id
    if str(id) in AUTH_CHATS:
      pass

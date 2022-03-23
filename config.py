@@ -1,8 +1,8 @@
-import dotenv
+from dotenv import load_dotenv
 from os import environ as env, path as ospath
 
 if ospath.exists(".env"):
-   dotenv.load_dotenv()
+   load_dotenv()
 
 class Config:
     API_ID = int(env.get('API_ID'))

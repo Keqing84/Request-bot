@@ -41,6 +41,7 @@ async def start_msg (message, bot):
 # Request Cmd
 @Appy.on_message(filters.incoming & (filters.command(["request", "req"], prefixes=prefixes)))
 async def requestmsg(message, bot):
+   await message.reply_text(message)
    id = message.chat.id
    if str(id) in AUTH_CHATS:
      pass

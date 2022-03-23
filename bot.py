@@ -18,14 +18,6 @@ Appy = Client(":memory:",
               api_hash = Config.API_HASH, 
               bot_token = Config.BOT_TOKEN
          )
-Appy.start()
-
-if Config.CHANNEL:
-  try:
-    Appy.send_message(Config.CHANNEL, "Bot Started Working")
-  except Exception as e:
-    LOGGER.error(e)
-    exit()
 
 # Variables Set
 prefixes = ["#","/","!","@"]
@@ -117,4 +109,4 @@ async def py_data(bot: Client, query: CallbackQuery):
 
 
 print("<--Bot Started-->")
-Appy.idle()
+Appy.run()

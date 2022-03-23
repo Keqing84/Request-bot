@@ -43,7 +43,7 @@ async def start_msg (message, bot):
    )
 
 # Request Cmd
-@Appy.on_message(filters.incoming & (filters.command("request", prefixes=prefixes) | filters.command("req", prefixes=prefixes)))
+@Appy.on_message(filters.incoming & (filters.command(["request", "req"], prefixes=prefixes)))
 async def requestmsg(message, bot):
    if not str(message.chat.id) in AUTH_CHATS:
      return
@@ -61,7 +61,7 @@ async def requestmsg(message, bot):
           [
              [ # First Row
                InlineKeyboardButton(text="🤗Complete🤗", callback_data="donee", user_id=user.id)
-             ]
+             ],
              [ # Secomd Row
                InlineKeyboardButton(text="😓Give Up😓", callback_data="give_up", user_id=user.id)
              ]
@@ -79,7 +79,7 @@ async def requestmsg(message, bot):
              )
    except Exception as e:
       LOGGER.info(e)
-      return await k.edit_text("**Error:**\n`{e}`)
+      return await k.edit_text("**Error:**\n`{str(e)}`")
 
    try:
      await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")
@@ -98,17 +98,16 @@ async def py_data(bot: Client, query: CallbackQuery):
        await query.message.edit_text(msg)
      except Exception as e:
        LOGGER.info(e)
-       await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
+       await bot.send_message(Config.Channel, text=f"**Error:**\n`{str(e)}`", reply_to_message_id=query.id)
 
    # Give Up Callback
-
    if query.data == "give_up":
      msg = "~~" + query.message + "~~" + "\n\nGive Up❎"
      try:
        await query.message.edit_text(msg)
      except Exception as e:
        LOGGER.info(e)
-       await bot.send_message(Config.Channel, e, reply_to_message_id=query.id)
+       await bot.send_message(Config.Channel, text=f"**Error:**\n`{str(e)}`", reply_to_message_id=query.id)
    else:
      pass
 

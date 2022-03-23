@@ -21,7 +21,7 @@ Appy = Client(":memory:",
 
 # Variables Set
 prefixes = ["#","/","!","@"]
-AUTH_CHATS = Config.AUTH_CHATS.split() if " " in Config.AUTH_CHATS else Config.AUTH_CHATS
+AUTH_CHATS = Config.AUTH_CHATS.split(" ") if " " in Config.AUTH_CHATS else Config.AUTH_CHATS
 
 # Start Message
 @Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
@@ -41,10 +41,11 @@ async def start_msg (message, bot):
 # Request Cmd
 @Appy.on_message(filters.incoming & (filters.command(["request", "req"], prefixes=prefixes)))
 async def requestmsg(message, bot):
-   if not str(message.chat.id) in AUTH_CHATS:
-     return
-   else:
+   id = message.chat.id
+   if str(id) in AUTH_CHATS:
      pass
+   else:
+     return
    text = message.text
    if not " " in text:
      return await message.reply_text("Send A Query Also with The Cmd in A Single Message.")

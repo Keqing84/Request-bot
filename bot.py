@@ -1,6 +1,6 @@
 # Copyright By Keqing84 | @dragonkrak
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, CallbackQuery, Message
 from pyrogram.errors import FloodWait
 from sys import exit
 from config import Config

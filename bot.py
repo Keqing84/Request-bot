@@ -7,13 +7,18 @@ from config import Config
 from os import environ as env
 import logging
 
-Appy = Client("Request Bot", api_id=Config.API_ID, api_hash=Config.API_HASH, bot_token=Config.BOT_TOKEN)
-
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
+Appy = Client(":memory:", 
+              api_id = Config.API_ID, 
+              api_hash = Config.API_HASH, 
+              bot_token = Config.BOT_TOKEN
+         )
+Appy.start()
 
 if Config.CHANNEL:
   try:
@@ -23,7 +28,6 @@ if Config.CHANNEL:
     exit()
 
 # Variables Set
-
 prefixes = ["#","/","!","@"]
 AUTH_CHATS = Config.AUTH_CHATS.split() if " " in Config.AUTH_CHATS else Config.AUTH_CHATS
 

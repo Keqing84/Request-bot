@@ -117,4 +117,4 @@ async def py_data(bot: Client, query: CallbackQuery):
 
 
 print("<--Bot Started-->")
-idle()
+Appy.idle()

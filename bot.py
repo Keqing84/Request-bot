@@ -17,7 +17,7 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 if Config.CHANNEL:
   try:
-    bot.send_message(Config.CHANNEL, "Bot Started Working")
+    Appy.send_message(Config.CHANNEL, "Bot Started Working")
   except Exception as e:
     LOGGER.error(e)
     exit()

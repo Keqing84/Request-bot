@@ -14,19 +14,24 @@ logging.basicConfig(level=logging.INFO,
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 Appy = Client("Rq-Bot", 
-              api_id = Config.API_ID, 
-              api_hash = Config.API_HASH, 
-              bot_token = Config.BOT_TOKEN
+         api_id = Config.API_ID, 
+         api_hash = Config.API_HASH, 
+         bot_token = Config.BOT_TOKEN
          )
 
 # Variables Set
 prefixes = ["#","/","!","@"]
-AUTH_CHATS = Config.AUTH_CHATS.split(" ") if " " in Config.AUTH_CHATS else Config.AUTH_CHATS
+AUTH_CHATS = set()
+if " " in Config.AUTH_CHATS:
+    achats = Config.AUTH_CHATS.split(" ")
+    for chats in achats:
+        AUTH_CHATS.add(int(chats))
+else:
+    AUTH_CHATS.add(int(Config.AUTH_CHATS))
 
 # Start Message
 @Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
-async def start_msg(message: Message, bot):
-   await message.reply_text(message)
+async def start_msg(message: Message, bot: Appy):
    user = message.from_user
    mention = user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
@@ -41,7 +46,7 @@ async def start_msg(message: Message, bot):
 
 # Request Cmd
 @Appy.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
-async def request_msg(message: Message, bot):
+async def request_msg(message: Message, bot: Appy):
    id = message.chat.id
    if str(id) in AUTH_CHATS:
      pass

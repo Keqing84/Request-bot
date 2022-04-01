@@ -26,6 +26,7 @@ AUTH_CHATS = Config.AUTH_CHATS.split(" ") if " " in Config.AUTH_CHATS else Confi
 # Start Message
 @Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
 async def start_msg(message: Message, bot):
+   await message.reply_text(message)
    user = message.from_user
    mention = user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'

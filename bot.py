@@ -30,8 +30,8 @@ else:
     AUTH_CHATS.add(int(Config.AUTH_CHATS))
 
 # Start Message
-@Appy.on_message(filters.incoming & filters.command("start", prefixes=prefixes))
-async def start_msg(message: Message, bot: Appy):
+@Appy.on_message(filters.private & filters.command("start", prefixes=prefixes))
+async def start_msg(message: Message, bot: Client):
    user = message.from_user
    mention = user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
@@ -46,7 +46,7 @@ async def start_msg(message: Message, bot: Appy):
 
 # Request Cmd
 @Appy.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
-async def request_msg(message: Message, bot: Appy):
+async def request_msg(message: Message, bot: Client):
    id = message.chat.id
    if str(id) in AUTH_CHATS:
      pass

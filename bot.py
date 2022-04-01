@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO,
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-Appy = Client("Rq-Bot", 
+Appy = Client(":memory:", 
          api_id = Config.API_ID, 
          api_hash = Config.API_HASH, 
          bot_token = Config.BOT_TOKEN
@@ -39,8 +39,6 @@ async def start_msg(message: Message, bot: Client):
                         photo=Config.IMG, 
                         caption=text,
                         parse_mode="md",
-                        reply_to_message_id=user.id,
-                        ttl_seconds=15,
                         protect_content=True
    )
 

@@ -1,10 +1,9 @@
 # Copyright By Keqing84 | @dragonkrak
+
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, CallbackQuery, Message, Chat
+from pyrogram.types import InlineKeyboardMarkup, CallbackQuery, Message
 from pyrogram.errors import FloodWait
-from sys import exit
 from config import Config
-from os import environ as env
 import logging
 
 LOGGER = logging.getLogger(__name__)
@@ -13,7 +12,8 @@ logging.basicConfig(level=logging.INFO,
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-Appy = Client(":memory:", 
+app = Client(
+         ":memory:", 
          api_id = Config.API_ID, 
          api_hash = Config.API_HASH, 
          bot_token = Config.BOT_TOKEN
@@ -30,7 +30,7 @@ else:
     AUTH_CHATS.add(int(Config.AUTH_CHATS))
 
 # Start Message
-@Appy.on_message(filters.private & filters.command("start", prefixes=prefixes))
+@app.on_message(filters.private & filters.command("start", prefixes=prefixes))
 async def start_msg(message: Message, bot: Client):
    user = message.from_user
    mention = user.mention(style="md")
@@ -43,7 +43,7 @@ async def start_msg(message: Message, bot: Client):
    )
 
 # Request Cmd
-@Appy.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
+@app.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
 async def request_msg(message: Message, bot: Client):
    id = message.chat.id
    if str(id) in AUTH_CHATS:

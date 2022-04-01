@@ -8,7 +8,7 @@ import logging
 
 LOGGER = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+                    format='%(name)s - %(message)s')
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
@@ -32,7 +32,7 @@ else:
 # Start Message
 @app.on_message(filters.private & filters.command("start", prefixes=prefixes))
 async def start_msg(message: Message, bot: Client):
-   print(message)
+   LOGGER.info(message)
    user = message.from_user
    mention = user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'

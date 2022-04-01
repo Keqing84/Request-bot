@@ -114,4 +114,4 @@ async def py_data(bot: Client, query: CallbackQuery):
 
 
 LOGGER.info("<--Bot Started-->")
-Appy.run()
+app.run()

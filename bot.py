@@ -1,7 +1,7 @@
 # Copyright By Keqing84 | @dragonkrak
 
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, CallbackQuery, Message
+from pyrogram.types import CallbackQuery, Message
 from pyrogram.errors import FloodWait
 from config import Config
 import logging
@@ -91,7 +91,7 @@ async def request_msg(message: Message, bot: Client):
 
 
 # CallBack Query
-@Appy.on_callback_query()
+@app.on_callback_query()
 async def py_data(bot: Client, query: CallbackQuery):
    if query.data == "donee":
      msg = "~~" + query.message + "~~" + "\n\nCompleted✅"

@@ -32,16 +32,15 @@ else:
 # Start Message
 @app.on_message(filters.private & filters.command("start", prefixes=prefixes))
 async def start_msg(message: Message, bot: Client):
-   LOGGER.info(message)
-   user = message.from_user
-   mention = user.mention(style="md")
+   mention = message.from_user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
-   await bot.send_photo(chat_id=message.chat.id, 
-                        photo=Config.IMG, 
-                        caption=text,
-                        parse_mode="md",
-                        protect_content=True
-   )
+   await bot.send_photo(
+             chat_id=message.chat.id, 
+             photo=Config.IMG, 
+             caption=text,
+             parse_mode="md",
+             protect_content=True
+     )
 
 # Request Cmd
 @app.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))

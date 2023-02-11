@@ -55,7 +55,7 @@ async def request_msg(_, msg: Message):
    else:
      pass
    reqtext = text.split(" ", 1)[-1]
-   user = message.from_user
+   user = msg.from_user
    mention = user.mention(style="md")
    markup = InlineKeyboardMarkup(
           [
@@ -85,7 +85,7 @@ async def request_msg(_, msg: Message):
      await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")
    except Exception as e:
      LOGGER.info(e)
-     await message.reply("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.", quote=True)
+     await msg.reply("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.", quote=True)
      await K.delete()
 
 

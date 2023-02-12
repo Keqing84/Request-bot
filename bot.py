@@ -89,7 +89,7 @@ async def request_msg(_, msg: Message):
       return await K.edit_text("**Error:**\n\n`{str(e)}`")
 
    try:
-     url = "https://t.me/c/ + str(Config.CHANNEL).replace('-100', '') + "/" + str(chan.message_id)
+     url = "https://t.me/c/" + str(Config.CHANNEL).replace('-100', '') + "/" + str(chan.message_id)
      btn = InlineKeyboardMarkup(
           [
              [ # First Row

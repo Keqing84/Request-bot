@@ -44,6 +44,7 @@ async def start_msg(_, msg: Message):
 # Request Cmd
 @app.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
 async def request_msg(_, msg: Message):
+   LOGGER.info(msg)
    id = msg.chat.id
    if str(id) in AUTH_CHATS:
      pass

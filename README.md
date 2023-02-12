@@ -1,4 +1,4 @@
-[![Request Bot](https://imgwhale.xyz/5taf21l07yc75m)](https://github.com/Keqing84/Request-bot)
+[![Request Bot](https://te.legra.ph/file/013eb4b121d22240d777c.jpg)](https://github.com/Keqing84/Request-bot)
 
 # Bot Info:
 - Current Version - `V1.0`

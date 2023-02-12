@@ -108,7 +108,7 @@ async def py_data(_, query: CallbackQuery):
    if not query.from_user.id in ADMINS:
       return await query.answer("Bruhh,\nYou are not a Admin", show_alert=True)
    if query.data == "donee":
-     msg = "~~" + query.message.text + "~~" + "\n\nC💁ompleted💁"
+     msg = "~~" + query.message.text + "~~" + "\n\n💁Completed💁"
      try:
        await query.message.edit_text(msg)
      except Exception as e:

@@ -90,7 +90,7 @@ async def request_msg(_, msg: Message):
 @app.on_callback_query()
 async def py_data(_, query: CallbackQuery):
    if query.data == "donee":
-     msg = "~~" + query.message + "~~" + "\n\nCompleted✅"
+     msg = "~~" + query.message.text + "~~" + "\n\nCompleted✅"
      try:
        await query.message.edit_text(msg)
      except Exception as e:

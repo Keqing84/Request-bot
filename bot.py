@@ -33,12 +33,12 @@ else:
 @app.on_message(~filters.edited & filters.command("start", prefixes=prefixes))
 async def start_msg(_, msg: Message):
    mention = msg.from_user.mention(style="md")
-   text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
+   text = f'Hello {mention},\n**I am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.**'
    await msg.reply_photo(
              Config.IMG, 
              caption=text,
              parse_mode="md",
-             quote=False
+             quote=True
      )
 
 # Request Cmd
@@ -49,7 +49,7 @@ async def request_msg(_, msg: Message):
      return
    text = msg.text
    if not " " in text:
-     return await msg.reply_text("Send A Query Also with The Cmd in A Single Message.")
+     return await msg.reply_text("Send A Query Also with The Cmd in A Single Message.", quote=True)
    else:
      pass
    reqtext = text.split(" ", 1)[-1]
@@ -66,7 +66,7 @@ async def request_msg(_, msg: Message):
         )
    K = await msg.reply("`.....`", quote=True)
    try:
-      rtext = f"A New Request Has Been Made\n\nRequest: {reqtext}\n\nFrom: {mention} | `{msg.from_user.id}`"
+      rtext = f"**New Request**\n\nRequest: {reqtext}\n\nFrom: {mention} | `{msg.from_user.id}`"
       await app.send_message(chat_id=Config.CHANNEL,
                   text=rtext,
                   disable_web_page_preview=True,
@@ -79,10 +79,10 @@ async def request_msg(_, msg: Message):
       return await K.edit_text("**Error:**\n\n`{str(e)}`")
 
    try:
-     await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")
+     await K.edit_text("**My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.**")
    except Exception as e:
      LOGGER.info(e)
-     await msg.reply("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.", quote=True)
+     await msg.reply("**My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.**")
      await K.delete()
 
 
@@ -99,7 +99,7 @@ async def py_data(_, query: CallbackQuery):
 
    # Give Up Callback
    if query.data == "give_up":
-     msg = "~~" + query.message + "~~" + "\n\nGive Up❎"
+     msg = "~~" + query.message.text + "~~" + "\n\nGive Up❎"
      try:
        await query.message.edit_text(msg)
      except Exception as e:

@@ -30,7 +30,7 @@ else:
     AUTH_CHATS.add(int(Config.AUTH_CHATS))
 
 # Start Message
-@app.on_message(filters.private & filters.command("start", prefixes=prefixes))
+@app.on_message(~filters.edited && filters.command("start", prefixes=prefixes))
 async def start_msg(_, msg: Message):
    mention = msg.from_user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'
@@ -38,7 +38,7 @@ async def start_msg(_, msg: Message):
              Config.IMG, 
              caption=text,
              parse_mode="md",
-             quote=True
+             quote=False
      )
 
 # Request Cmd
@@ -46,16 +46,15 @@ async def start_msg(_, msg: Message):
 async def request_msg(_, msg: Message):
    LOGGER.info(msg)
    id = msg.chat.id
-   if not str(id) in AUTH_CHATS:
-     return await msg.reply_text("Not A Auth Chat.")
+   if not id in AUTH_CHATS:
+     return
    text = msg.text
    if not " " in text:
      return await msg.reply_text("Send A Query Also with The Cmd in A Single Message.")
    else:
      pass
    reqtext = text.split(" ", 1)[-1]
-   user = msg.from_user
-   mention = user.mention(style="md")
+   mention = msg.from_user.mention(style="md")
    markup = InlineKeyboardMarkup(
           [
              [ # First Row
@@ -68,7 +67,7 @@ async def request_msg(_, msg: Message):
         )
    K = await msg.reply("`.....`", quote=True)
    try:
-      rtext = f"A New Request Has Been Made\n\nRequest: {reqtext}\n\nFrom: {mention} | `{user.id}`"
+      rtext = f"A New Request Has Been Made\n\nRequest: {reqtext}\n\nFrom: {mention} | `{msg.from_user.id}`"
       await bot.send_message(chat_id=Config.CHANNEL,
                   text=rtext,
                   disable_web_page_preview=True,

@@ -30,7 +30,7 @@ else:
     AUTH_CHATS.add(int(Config.AUTH_CHATS))
 
 # Start Message
-@app.on_message(~filters.edited && filters.command("start", prefixes=prefixes))
+@app.on_message(~filters.edited & filters.command("start", prefixes=prefixes))
 async def start_msg(_, msg: Message):
    mention = msg.from_user.mention(style="md")
    text = f'Hello {mention},\nI am A Requesting Bot, Here You Can Me Request With Cmd `/request query` That Is To Be Fulfilled by The Admin(s)/Owner.'

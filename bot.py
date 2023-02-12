@@ -67,34 +67,40 @@ async def request_msg(_, msg: Message):
    markup = InlineKeyboardMarkup(
           [
              [ # First Row
-               InlineKeyboardButton(text="🤗Complete🤗", callback_data="donee", user_id=msg.from_user.id)
+               InlineKeyboardButton(text="Completed", callback_data="donee", user_id=msg.from_user.id)
              ],
              [ # Secomd Row
-               InlineKeyboardButton(text="😓Give Up😓", callback_data="give_up", user_id=msg.from_user.id)
+               InlineKeyboardButton(text="Declined", callback_data="give_up", user_id=msg.from_user.id)
              ]
           ]
         )
    K = await msg.reply("`.....`", quote=True)
    try:
       rtext = f"**New Request**\n\nRequest: {reqtext}\n\nFrom: {mention} | `{msg.from_user.id}`"
-      await app.send_message(chat_id=Config.CHANNEL,
-                  text=rtext,
-                  disable_web_page_preview=True,
-                  disable_notification=False,
-                  parse_mode="md",
-                  reply_markup=markup
-             )
+      chan = await app.send_message(chat_id=Config.CHANNEL,
+                      text=rtext,
+                      disable_web_page_preview=True,
+                      disable_notification=False,
+                      parse_mode="md",
+                      reply_markup=markup
+               )
    except Exception as e:
       LOGGER.info(e)
       return await K.edit_text("**Error:**\n\n`{str(e)}`")
 
    try:
-     await K.edit_text("**My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.**")
+     url = "https://t.me/c/ + str(Config.CHANNEL).replace('-100', '') + "/" + str(chan.message_id)
+     btn = InlineKeyboardMarkup(
+          [
+             [ # First Row
+               InlineKeyboardButton(text="Check Status", url=url)
+             ],
+          ]
+        )
+     await K.delete()
+     await msg.reply("**My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.**", quote=True, reply_markup=btn)
    except Exception as e:
      LOGGER.info(e)
-     await msg.reply("**My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.**")
-     await K.delete()
-
 
 # CallBack Query
 @app.on_callback_query()

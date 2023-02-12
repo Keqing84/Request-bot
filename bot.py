@@ -1,7 +1,7 @@
 # Copyright By Keqing84 | @dragonkrak
 
 from pyrogram import Client, filters
-from pyrogram.types import CallbackQuery, Message
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery, Message
 from pyrogram.errors import FloodWait
 from config import Config
 import logging

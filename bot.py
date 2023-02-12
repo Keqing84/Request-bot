@@ -29,6 +29,16 @@ if " " in Config.AUTH_CHATS:
 else:
     AUTH_CHATS.add(int(Config.AUTH_CHATS))
 
+# Admins
+ADMINS = set()
+if " " in Config.ADMIN:
+    achats = Config.ADMIN.split(" ")
+    for chats in achats:
+        ADMINS.add(int(chats))
+else:
+    ADMINS.add(int(Config.ADMIN))
+
+
 # Start Message
 @app.on_message(~filters.edited & filters.command("start", prefixes=prefixes))
 async def start_msg(_, msg: Message):
@@ -89,8 +99,10 @@ async def request_msg(_, msg: Message):
 # CallBack Query
 @app.on_callback_query()
 async def py_data(_, query: CallbackQuery):
+   if not query.from_user.id in ADMINS:
+      return await query.answer("Bruhh,\nYou are not a Admin", show_alert=True)
    if query.data == "donee":
-     msg = "~~" + query.message.text + "~~" + "\n\nCompleted✅"
+     msg = "~~" + query.message.text + "~~" + "\n\nC💁ompleted💁"
      try:
        await query.message.edit_text(msg)
      except Exception as e:
@@ -99,7 +111,7 @@ async def py_data(_, query: CallbackQuery):
 
    # Give Up Callback
    if query.data == "give_up":
-     msg = "~~" + query.message.text + "~~" + "\n\nGive Up❎"
+     msg = "~~" + query.message.text + "~~" + "\n\n🙅Declined🙅"
      try:
        await query.message.edit_text(msg)
      except Exception as e:

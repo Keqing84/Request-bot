@@ -67,7 +67,7 @@ async def request_msg(_, msg: Message):
    K = await msg.reply("`.....`", quote=True)
    try:
       rtext = f"A New Request Has Been Made\n\nRequest: {reqtext}\n\nFrom: {mention} | `{msg.from_user.id}`"
-      await bot.send_message(chat_id=Config.CHANNEL,
+      await app.send_message(chat_id=Config.CHANNEL,
                   text=rtext,
                   disable_web_page_preview=True,
                   disable_notification=False,

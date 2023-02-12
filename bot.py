@@ -42,12 +42,12 @@ async def start_msg(_, msg: Message):
      )
 
 # Request Cmd
-@app.on_message(~filters.edited & filters.command(["request", "req"], prefixes=prefixes))
+@app.on_message(~filters.edited & filters.command("request", prefixes=prefixes))
 async def request_msg(_, msg: Message):
    LOGGER.info(msg)
    id = msg.chat.id
    if not str(id) in AUTH_CHATS:
-     return
+     return await msg.reply_text("Not A Auth Chat.")
    text = msg.text
    if not " " in text:
      return await msg.reply_text("Send A Query Also with The Cmd in A Single Message.")

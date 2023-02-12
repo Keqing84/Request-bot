@@ -46,9 +46,7 @@ async def start_msg(_, msg: Message):
 async def request_msg(_, msg: Message):
    LOGGER.info(msg)
    id = msg.chat.id
-   if str(id) in AUTH_CHATS:
-     pass
-   else:
+   if not str(id) in AUTH_CHATS:
      return
    text = msg.text
    if not " " in text:

@@ -44,7 +44,6 @@ async def start_msg(_, msg: Message):
 # Request Cmd
 @app.on_message(~filters.edited & filters.command("request", prefixes=prefixes))
 async def request_msg(_, msg: Message):
-   LOGGER.info(msg)
    id = msg.chat.id
    if not id in AUTH_CHATS:
      return
@@ -77,7 +76,7 @@ async def request_msg(_, msg: Message):
              )
    except Exception as e:
       LOGGER.info(e)
-      return await k.edit_text("**Error:**\n\n`{str(e)}`")
+      return await K.edit_text("**Error:**\n\n`{str(e)}`")
 
    try:
      await K.edit_text("My Part Is Done. Now U Just Have To Wait For The Admin/Owner To Proved or Disapprove It.")

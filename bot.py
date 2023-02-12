@@ -58,10 +58,10 @@ async def request_msg(_, msg: Message):
    markup = InlineKeyboardMarkup(
           [
              [ # First Row
-               InlineKeyboardButton(text="🤗Complete🤗", callback_data="donee", user_id=user.id)
+               InlineKeyboardButton(text="🤗Complete🤗", callback_data="donee", user_id=msg.from_user.id)
              ],
              [ # Secomd Row
-               InlineKeyboardButton(text="😓Give Up😓", callback_data="give_up", user_id=user.id)
+               InlineKeyboardButton(text="😓Give Up😓", callback_data="give_up", user_id=msg.from_user.id)
              ]
           ]
         )
